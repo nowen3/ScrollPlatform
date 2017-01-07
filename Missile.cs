@@ -209,4 +209,58 @@ namespace scrollPlatform
 
     }
 
+    class HealthAnimate
+    {
+        public float animationinterval;
+        public Vector2 Position;
+        float timer;
+        int myAlpha;
+        SpriteFont font;
+        Color myColor;
+        string text;
+        public bool hit;
+
+        public HealthAnimate(ContentManager content, Vector2 startpos, string Text)
+        {
+            font = content.Load<SpriteFont>("numbers");
+            myAlpha = 255;
+            animationinterval = 150f;
+            text = Text;
+            Position = startpos;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+
+            timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (timer > animationinterval)
+            {
+                myAlpha = myAlpha - 50;
+                if (myAlpha <= 50)
+                {
+
+                    hit = true;
+                }
+
+                timer = 0f;
+                
+
+            }
+
+        }
+
+        public bool Hit
+        {
+            get { return hit; }
+
+            set { hit = value;}
+        }
+
+        public void Draw(SpriteBatch spritebacth)
+        {
+            myColor = new Color((byte)255, (byte)0, (byte)0, (byte)myAlpha);
+            spritebacth.DrawString(font, text, Position, myColor);
+        }
+    }
+
 }

@@ -65,6 +65,7 @@ namespace scrollPlatform
         List<Missile> missile = new List<Missile>();
         List<Explosion> myexplsion = new List<Explosion>();
         List<Dead> mydead = new List<Dead>();
+        List<HealthAnimate> myhealth = new List<HealthAnimate>();
 
         public Game1()
         {
@@ -243,6 +244,10 @@ namespace scrollPlatform
                 {
                     dead.Update(gameTime);
                 }
+                foreach(HealthAnimate ha in myhealth)
+                {
+                    ha.Update(gameTime);
+                }
                 foreach (Missile miss in missile)
                 {
                     miss.Update(gameTime);
@@ -263,6 +268,7 @@ namespace scrollPlatform
                 camera.Update(player.Position, mymap.Width, mymap.Height);
                 foes.RemoveAll(x => x.Hit == true);
                 myexplsion.RemoveAll(x => x.Hit == true);
+                myhealth.RemoveAll(x => x.Hit == true);
                 mydead.RemoveAll(x => x.Hit == true);
                 missile.RemoveAll(x => x.Hit == true);
                 if (player.IsDead)
@@ -318,6 +324,7 @@ namespace scrollPlatform
                             foe.Health = 100;
                             miss.Hit = true;
                             myexplsion.Add(new Explosion(Content, miss.Position));
+                            myhealth.Add(new HealthAnimate(Content, miss.Position, foe.Health.ToString()));
                             Debug.WriteLine(foe.Health);
                         }
 
@@ -357,7 +364,9 @@ namespace scrollPlatform
                 miss.Draw(spriteBatch);
             foreach (Explosion exp in myexplsion)
                 exp.Draw(spriteBatch);
-           
+            foreach (HealthAnimate ha in myhealth)
+                ha.Draw(spriteBatch);
+
 
             spriteBatch.End();
 
