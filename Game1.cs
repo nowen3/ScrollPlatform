@@ -315,7 +315,10 @@ namespace scrollPlatform
                     {
                         if (miss.BoundingBox.Intersects(foe.BoundingBox))
                         {
-                            foe.Hit = true;
+                            foe.Health = 100;
+                            miss.Hit = true;
+                            myexplsion.Add(new Explosion(Content, miss.Position));
+                            Debug.WriteLine(foe.Health);
                         }
 
                     }

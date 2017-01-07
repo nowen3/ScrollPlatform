@@ -59,6 +59,7 @@ namespace scrollPlatform
             rotate = false;
             if (go.rotation == 180) { rotate = true; }
             health = go.health;
+            Debug.WriteLine(health);
 
 
         }
