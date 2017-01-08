@@ -22,6 +22,7 @@ namespace scrollPlatform
         protected float timer;
         protected float animationinterval;
         protected bool rotate;
+        protected int health;
 
         public Sprite(ContentManager content, gameObjects go)
         {
@@ -58,6 +59,14 @@ namespace scrollPlatform
                 if (sound != null)
                     sound.Play();
             }
+        }
+
+        public virtual int Health
+        {
+            get { return health; }
+
+            set { health = health - value; }
+    
         }
 
         public string Type
@@ -110,55 +119,26 @@ namespace scrollPlatform
         }
 
     }
-
-
-
-
-    class enemie: Sprite
+//-----------------------------------------------------------------------------------------------------------------------------------
+    class SmallBot: Sprite
     {
         protected int animoveby;
         protected bool direction;
         protected int health;
         protected SoundEffect myeffect;
         
-        public enemie(ContentManager content, gameObjects go) : base(content, go)
+        public SmallBot(ContentManager content, gameObjects go) : base(content, go)
 
         {
-            
-            //myimage = content.Load<Texture2D>(go.content);
-            //if (!string.IsNullOrEmpty(go.Sound))
-            //{
-            //    myeffect = content.Load<SoundEffect>(go.Sound);
-            //}
-            //if (!string.IsNullOrEmpty(go.type))
-            //{
-            //    Type = go.type;
-            //}
-            //tilenumbers = (myimage.Width / go.width);
-            //foerect = new Rectangle[tilenumbers];
-            //for (int i = 0; i <= tilenumbers - 1; i++)
-            //{
-            //    foerect[i] = new Rectangle(go.width * i, 0, go.width, go.height);
-            //}
             animoveby = 4;
             timer = 0f;
-            //imageRectange = foerect[0];
-            //position = new Vector2(go.xpos, go.ypos);
-           // hit = false;
-            
             direction = false;
-            //currentFrame = 0;
             animationinterval = 200f;
-            //rotate = false;
-            //if (go.rotation == 180) { rotate = true; }
-            //health = go.health;
-            
-
-
+            health = go.health;
         }
 
         
-        public int Health
+        public override int Health
         {
             get { return health; }
 
@@ -170,21 +150,7 @@ namespace scrollPlatform
             }
         }
 
-        //public Vector2 Position
-        //{
-        //    get { return position; }
-        //    set { position = value; }
-        //}
-
-
-        //public Rectangle BoundingBox
-        //{
-        //    get
-        //    {
-        //        return new Rectangle((int)position.X, (int)position.Y, imageRectange.Width, imageRectange.Height);
-        //    }
-        //}
-
+      
         public override void Update(GameTime gameTime, Map map)
         {
             int frame = 0;
@@ -233,38 +199,25 @@ namespace scrollPlatform
         }
 
 
-        //public override void Draw(SpriteBatch spritebatch)
-        //{
-
-        //    if (rotate)
-        //    {
-        //        Vector2 pos = new Vector2(imageRectange.Width / 2, imageRectange.Height);
-        //        spritebatch.Draw(myimage, position, imageRectange, Color.White, 0, pos, 1, SpriteEffects.FlipHorizontally, 0);
-        //    }
-        //    else
-        //        spritebatch.Draw(myimage, position, imageRectange, Color.White);
-        //}
     }
-
+    //-----------------------------------------------------------------------------------------------------------------------------------
     class Drone : Sprite
     {
 
         int inc;
         protected int animoveby;
-
         float firetime, lighttimer;
         bool fire;
 
         public Drone(ContentManager content, gameObjects go) : base(content, go)
         {
             animationinterval = 50;
-           // currentFrame = 0;
-           // tilenumbers = myimage.Width / go.width;
             inc = 0;
             fire = false;
             firetime = 0;
             lighttimer = 0;
             animoveby = 4;
+            health = go.health;
            
         }
 
@@ -273,7 +226,19 @@ namespace scrollPlatform
           get { return fire; }
           set { fire = value; }
         }
-        
+
+        public override int Health
+        {
+            get { return health; }
+
+            set
+            {
+                health = health - value;
+                if (health <= 0)
+                    hit = true;
+            }
+        }
+
         public override void Update(GameTime gameTime, Map map)
         {
 
@@ -341,7 +306,7 @@ namespace scrollPlatform
 
 
     }
-
+    //-----------------------------------------------------------------------------------------------------------------------------------
     class BigGun : Sprite
     {
 
@@ -351,13 +316,12 @@ namespace scrollPlatform
         public BigGun(ContentManager content, gameObjects go) : base(content, go)
         {
             animationinterval = 300f;
-            currentFrame = 0;
-            tilenumbers = myimage.Width / go.width;
             inc = 0;
             Fire = false;
             if (rotate)
                 firedirection = Direction.LEFT;
             else firedirection = Direction.RIGHT;
+            health = go.health;
         }
 
         public bool Fire { get; set; }
@@ -365,6 +329,18 @@ namespace scrollPlatform
         {
             get { return firedirection; }
             set { firedirection = value; }
+        }
+
+        public override int Health
+        {
+            get { return health; }
+
+            set
+            {
+                health = health - value;
+                if (health <= 0)
+                    hit = true;
+            }
         }
 
         public override void Update(GameTime gameTime, Map map)

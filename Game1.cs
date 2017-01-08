@@ -145,7 +145,7 @@ namespace scrollPlatform
                 }
                 if (go.name == "Eye")
                 {
-                    foes.Add(new enemie(Content, go));
+                    foes.Add(new SmallBot(Content, go));
                     totalmonsters++;
                 }
                 if (go.name == "Biggun")
