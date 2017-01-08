@@ -61,7 +61,7 @@ namespace scrollPlatform
 
 
         List<gameObjects> gameobs = new List<gameObjects>();
-        List<enemie> foes = new List<enemie>();
+        List<Sprite> foes = new List<Sprite>();
         List<Missile> missile = new List<Missile>();
         List<Explosion> myexplsion = new List<Explosion>();
         List<Dead> mydead = new List<Dead>();
@@ -195,7 +195,7 @@ namespace scrollPlatform
             if (!pause)
             {
                 
-                foreach (enemie foe in foes)
+                foreach (Sprite foe in foes)
                 {
                     if (foe is BigGun)
                     {
@@ -212,7 +212,7 @@ namespace scrollPlatform
                         
                         if ((foe as Drone).Fire & missile.Count < 10)
                         {
-                            var bombpos = new Vector2(foe.Position.X + (foe.BoundingBox.Width/2), foe.position.Y + foe.BoundingBox.Height);
+                            var bombpos = new Vector2(foe.Position.X + (foe.BoundingBox.Width/2), foe.Position.Y + foe.BoundingBox.Height);
                             missile.Add(new Missile(Content.Load<Texture2D>("bomb"), bombpos , Direction.DOWN, false));
                             
                         }
@@ -282,7 +282,7 @@ namespace scrollPlatform
 
         private void CheckCollision()
         {
-            foreach (enemie foe in foes)
+            foreach (Sprite foe in foes)
             {
                 if (foe.BoundingBox.Intersects(player.BoundingBox) && foe.Type == "Foe")
                 {
@@ -291,7 +291,7 @@ namespace scrollPlatform
                     {
                         foe.Hit = true;
                         monsterscore++;
-                        mydead.Add(new Dead(foe.myimage, foe.Position));
+                        mydead.Add(new Dead(foe.GetImage, foe.Position));
                     }
                     else
                     {
@@ -317,7 +317,7 @@ namespace scrollPlatform
                // Debug.WriteLine(miss.Parent);
                 if (miss.Parent == Owner.PLAYER)
                 {
-                    foreach (enemie foe in foes)
+                    foreach (Sprite foe in foes)
                     {
                         if (miss.BoundingBox.Intersects(foe.BoundingBox))
                         {
@@ -356,7 +356,7 @@ namespace scrollPlatform
 
             mymap.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch);
-            foreach (enemie foe in foes)
+            foreach (Sprite foe in foes)
                 foe.Draw(spriteBatch);
             foreach (Dead dead in mydead)
                 dead.Draw(spriteBatch);

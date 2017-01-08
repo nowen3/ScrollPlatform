@@ -131,11 +131,7 @@ namespace scrollPlatform
         int tilenumbers;
         protected Rectangle[] foerect;
         public bool hit;
-        
-
-
-
-
+  
         public Explosion(ContentManager content, Vector2 startpos)
         {
             currentFrame = 0;
@@ -236,6 +232,7 @@ namespace scrollPlatform
             if (timer > animationinterval)
             {
                 myAlpha = myAlpha - 50;
+                Position.Y = Position.Y - 5;
                 if (myAlpha <= 50)
                 {
 
