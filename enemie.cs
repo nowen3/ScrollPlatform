@@ -47,6 +47,7 @@ namespace scrollPlatform
             animationinterval = 100f;
             rotate = false;
             if (go.rotation == 180) { rotate = true; }
+            hit = false;
         }
 
         public bool Hit
@@ -91,7 +92,7 @@ namespace scrollPlatform
             get { return new Rectangle((int)position.X, (int)position.Y, imageRectange.Width, imageRectange.Height); }
         }
 
-        public virtual void Update(GameTime gameTime, Map map)
+        public virtual void Update(GameTime gameTime)
         {
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (timer > animationinterval)
@@ -124,9 +125,7 @@ namespace scrollPlatform
     {
         protected int animoveby;
         protected bool direction;
-        protected int health;
-        protected SoundEffect myeffect;
-        
+               
         public SmallBot(ContentManager content, gameObjects go) : base(content, go)
 
         {
@@ -151,13 +150,13 @@ namespace scrollPlatform
         }
 
       
-        public override void Update(GameTime gameTime, Map map)
+        public override void Update(GameTime gameTime)
         {
             int frame = 0;
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            string below = map.GetTileBelow(position, imageRectange);
-            string frontr = map.GetTileRight(position, imageRectange);
-            string frontl = map.GetTileLeft(position, imageRectange);
+            string below = Map.GetTileBelow(position, imageRectange);
+            string frontr = Map.GetTileRight(position, imageRectange);
+            string frontl = Map.GetTileLeft(position, imageRectange);
 
             if (timer > animationinterval)
             {
@@ -239,12 +238,12 @@ namespace scrollPlatform
             }
         }
 
-        public override void Update(GameTime gameTime, Map map)
+        public override void Update(GameTime gameTime)
         {
 
             fire = false;
-            string below = map.GetTileBelow(position, imageRectange);
-            string right = map.GetTileRight(position, imageRectange);
+            string below = Map.GetTileBelow(position, imageRectange);
+            string right = Map.GetTileRight(position, imageRectange);
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             firetime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             lighttimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -288,9 +287,9 @@ namespace scrollPlatform
             }
 
            
-            if (position.X + imageRectange.Width >= map.Width )
+            if (position.X + imageRectange.Width >= Map.Width )
             {
-                position.X = map.Width - imageRectange.Width;
+                position.X = Map.Width - imageRectange.Width;
                 animoveby = -animoveby;
             }
             if (position.Y < 0) position.Y = 0;
@@ -300,10 +299,6 @@ namespace scrollPlatform
                 animoveby = Math.Abs(animoveby);
             }
         }
-
-
-
-
 
     }
     //-----------------------------------------------------------------------------------------------------------------------------------
@@ -343,7 +338,7 @@ namespace scrollPlatform
             }
         }
 
-        public override void Update(GameTime gameTime, Map map)
+        public override void Update(GameTime gameTime)
         {
 
             Fire = false;

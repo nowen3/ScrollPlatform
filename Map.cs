@@ -9,45 +9,45 @@ using Microsoft.Xna.Framework.Content;
 
 namespace scrollPlatform
 {
-    class Map
+    static class Map
     {
 
-        public string BackGroundImage { get; set; }
-        public int ID { get; set; }
-        int[,] mapcords;
-        int[,] mapanimatecords;
-        int LayerHeightTiles;
-        int LayerWidthTiles;
-        int tilewidth;
-        int tileheight;
-        string[] TileType;
-        string[] TileTypeAnimate;
-        List<gameObjects> gameobjects;
-        List<Tile> mytiles = new List<Tile>();
-        List<AnimateTile> myanimatetiles = new List<AnimateTile>();
-        List<AnimateTile> antiles = new List<AnimateTile>();
-        private int screenwidth, screenheight;
+        public static string BackGroundImage { get; set; }
+        public static int ID { get; set; }
+        static int[,] mapcords;
+        static int[,] mapanimatecords;
+        static int LayerHeightTiles;
+        static int LayerWidthTiles;
+        static int tilewidth;
+        static int tileheight;
+        static string[] TileType;
+        static string[] TileTypeAnimate;
+        static List<gameObjects> gameobjects;
+        static List<Tile> mytiles = new List<Tile>();
+        static List<AnimateTile> myanimatetiles = new List<AnimateTile>();
+        static List<AnimateTile> antiles = new List<AnimateTile>();
+        private static int screenwidth, screenheight;
 
-        public int Width
+        public static int Width
         {
             get { return screenwidth; }
 
         }
 
-        public int Height
+        public static int Height
         {
             get { return screenheight; }
         }
 
-        private  ContentManager content;
-        public  ContentManager Content
+        private static ContentManager content;
+        public static ContentManager Content
         {
-            protected get { return content; }
+            get { return content; }
             set { content = value; }
         }
 
 
-        public void Loadfile(string fname)
+        public static void Loadfile(string fname)
         {
             ID = Convert.ToInt32(Path.GetFileNameWithoutExtension(fname));
             gameobjects = new List<gameObjects>();
@@ -120,40 +120,14 @@ namespace scrollPlatform
 
         }
 
-        //		
-
-        //public Texture2D[] Split(Texture2D original, int partWidth, int partHeight)
-        //{
-        //    int xCount = original.Width / partWidth;//The number of textures in each horizontal row
-        //    int yCount = original.Height / partHeight;//The number of textures in each vertical column
-        //    Texture2D[] r = new Texture2D[xCount * yCount];//Number of parts = (area of original) / (area of each part).
-        //    int index = 0;
-        //    for (int y = 0; y < yCount; y++)
-        //        for (int x = 0; x < xCount; x++)
-        //        {
-        //            Rectangle sourceRectangle = new Rectangle(x * partWidth, y * partHeight, partWidth, partHeight);
-        //            Texture2D cropTexture = new Texture2D(original.GraphicsDevice, sourceRectangle.Width, sourceRectangle.Height);
-        //            Color[] data = new Color[sourceRectangle.Width * sourceRectangle.Height];
-        //            original.GetData(0, sourceRectangle, data, 0, data.Length);
-        //            cropTexture.SetData(data);
-        //            r[index] = cropTexture;
-        //            index++;
-
-
-        //        }
-        //    return r;
-        //}
-
-
-
-
-        public List<gameObjects> GetObjects()
+       
+        public static List<gameObjects> GetObjects()
         {
             return gameobjects;
         }
 
 
-        public string GetTile(float x, float y)
+        public static string GetTile(float x, float y)
         {
             string result = "Nothing";
             if (x < 0 || x > Constants.ScreenWidth)
@@ -178,7 +152,7 @@ namespace scrollPlatform
                 return result;
         }
 
-        public Tile GetTileB(float x, float y)
+        public static Tile GetTileB(float x, float y)
         {
             Tile result = null;
             if (y > screenheight) y =screenheight;
@@ -191,7 +165,7 @@ namespace scrollPlatform
                 return result;
         }
 
-        public string GetTileBelow(Vector2 position, Rectangle rect)
+        public static string GetTileBelow(Vector2 position, Rectangle rect)
         {
 
             return GetTile(position.X + (rect.Width / 2), position.Y + rect.Height);
@@ -200,23 +174,23 @@ namespace scrollPlatform
 
 
 
-        public string GetTileAbove(Vector2 position, Rectangle rect)
+        public static string GetTileAbove(Vector2 position, Rectangle rect)
         {
             return GetTile(position.X + (rect.Width / 2), position.Y);
         }
 
 
-        public string GetTileRight(Vector2 postion, Rectangle rect)
+        public static string GetTileRight(Vector2 postion, Rectangle rect)
         {
             return GetTile(postion.X + (rect.Width), postion.Y + (rect.Height / 2));
         }
 
-        public string GetTileLeft(Vector2 postion, Rectangle rect)
+        public static string GetTileLeft(Vector2 postion, Rectangle rect)
         {
             return GetTile(postion.X, postion.Y + (rect.Height / 2));
         }
 
-        public void Draw(SpriteBatch spritebatch, GameTime gametime)
+        public static void Draw(SpriteBatch spritebatch, GameTime gametime)
         {
 
             foreach (Tile mytile in mytiles)

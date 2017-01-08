@@ -40,7 +40,6 @@ namespace scrollPlatform
         SpriteBatch spriteBatch;
         Texture2D Background;
         Texture2D lives;
-        Map mymap;
         Player player;
         
        
@@ -63,7 +62,7 @@ namespace scrollPlatform
         List<gameObjects> gameobs = new List<gameObjects>();
         List<Sprite> foes = new List<Sprite>();
         List<Missile> missile = new List<Missile>();
-        List<Explosion> myexplsion = new List<Explosion>();
+        List<Explosion1> myexplsion = new List<Explosion1>();
         List<Dead> mydead = new List<Dead>();
         List<HealthAnimate> myhealth = new List<HealthAnimate>();
 
@@ -111,7 +110,7 @@ namespace scrollPlatform
         {
             score = 0;
             monsterscore = 0;
-            mymap.ID = 0;
+            Map.ID = 0;
             mylives = 3;
             LoadGame(appPath + "\\" + level + ".tmx");
             NewGame();
@@ -121,10 +120,10 @@ namespace scrollPlatform
         {
 
             var mapimage = Content.Load<Texture2D>("TileSet32 x 32");
-            mymap = new Map();
-            mymap.Content = Content;
-            mymap.Loadfile(TMXfile);
-            gameobs = mymap.GetObjects();
+           // Map = new Map();
+            Map.Content = Content;
+            Map.Loadfile(TMXfile);
+            gameobs = Map.GetObjects();
             
  
         }
@@ -141,7 +140,7 @@ namespace scrollPlatform
                     player.IsDead = false;
                     player.Hit = false;
                     player.Position = new Vector2(go.xpos, go.ypos);
-                    player.MyMap = mymap;
+                    //player.Map = Map;
                 }
                 if (go.name == "Eye")
                 {
@@ -201,6 +200,7 @@ namespace scrollPlatform
                     {
                         if ((foe as BigGun).Fire & missile.Count < 10)
                         {
+                                                      
                             if ((foe as BigGun).FireDirection == Direction.LEFT)
                                 missile.Add(new Missile(Content.Load<Texture2D>("Missile"), foe.Position, Direction.RIGHT, true)); // back to front
                             else
@@ -217,7 +217,7 @@ namespace scrollPlatform
                             
                         }
                     }
-                    foe.Update(gameTime, mymap);
+                    foe.Update(gameTime);
                 }
                 if (!player.fire) { firecount = 0; }
                 if (player.fire && missilletimer > 1000)
@@ -251,13 +251,21 @@ namespace scrollPlatform
                 foreach (Missile miss in missile)
                 {
                     miss.Update(gameTime);
-                    if (mymap.GetTileBelow(miss.Position, miss.BoundingBox) == "Solid")
+                    if (Map.GetTileBelow(miss.Position, miss.BoundingBox) == "Solid")
                     {
                         miss.Hit = true;
-                        myexplsion.Add(new Explosion(Content, miss.Position));
+                        var go = new gameObjects();
+                        go.content = "explosion";
+                        go.xpos = miss.Position.X;
+                        go.ypos = miss.Position.Y;
+                        go.Sound = "bomb-sound";
+                        go.height = 50;
+                        go.width = 50;
+                        // myexplsion.Add(new Explosion(Content, miss.Position));
+                        myexplsion.Add(new Explosion1(Content, go));
                     }
                 }
-                foreach (Explosion exp in myexplsion)
+                foreach (Explosion1 exp in myexplsion)
                 {
                     exp.Update(gameTime);
                 }
@@ -265,7 +273,7 @@ namespace scrollPlatform
                 player.Update(gameTime);
                 player.Input( );
                 
-                camera.Update(player.Position, mymap.Width, mymap.Height);
+                camera.Update(player.Position, Map.Width, Map.Height);
                 foes.RemoveAll(x => x.Hit == true);
                 myexplsion.RemoveAll(x => x.Hit == true);
                 myhealth.RemoveAll(x => x.Hit == true);
@@ -323,7 +331,7 @@ namespace scrollPlatform
                         {
                             foe.Health = 100;
                             miss.Hit = true;
-                            myexplsion.Add(new Explosion(Content, miss.Position));
+                           // myexplsion.Add(new Explosion1(Content, miss.Position));
                             myhealth.Add(new HealthAnimate(Content, miss.Position, foe.Health.ToString()));
                             Debug.WriteLine(foe.Health);
                         }
@@ -331,7 +339,7 @@ namespace scrollPlatform
                     }
                 }
             }
-            foreach (Explosion exp in myexplsion)
+            foreach (Explosion1 exp in myexplsion)
             {
                 if (exp.BoundingBox.Intersects(player.BoundingBox))
                 {
@@ -354,7 +362,7 @@ namespace scrollPlatform
                                 null, null, null, null,
                                 camera.Transform);
 
-            mymap.Draw(spriteBatch, gameTime);
+            Map.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch);
             foreach (Sprite foe in foes)
                 foe.Draw(spriteBatch);
@@ -362,7 +370,7 @@ namespace scrollPlatform
                 dead.Draw(spriteBatch);
             foreach (Missile miss in missile)
                 miss.Draw(spriteBatch);
-            foreach (Explosion exp in myexplsion)
+            foreach (Explosion1 exp in myexplsion)
                 exp.Draw(spriteBatch);
             foreach (HealthAnimate ha in myhealth)
                 ha.Draw(spriteBatch);
