@@ -22,6 +22,7 @@ namespace scrollPlatform
         protected float timer;
         protected float animationinterval;
         protected bool rotate;
+        protected int health;
 
         public Sprite(ContentManager content, gameObjects go)
         {
@@ -77,6 +78,14 @@ namespace scrollPlatform
             get { return myimage; }
         }
 
+        public virtual int Health
+        {
+            get { return health; }
+
+            set { health = health - value;}
+        }
+
+
         public Rectangle BoundingBox
         {
             get { return new Rectangle((int)position.X, (int)position.Y, imageRectange.Width, imageRectange.Height); }
@@ -118,8 +127,8 @@ namespace scrollPlatform
     {
         protected int animoveby;
         protected bool direction;
-        protected int health;
-        protected SoundEffect myeffect;
+        //protected int health;
+        //protected SoundEffect myeffect;
         
         public enemie(ContentManager content, gameObjects go) : base(content, go)
 
@@ -151,14 +160,14 @@ namespace scrollPlatform
             animationinterval = 200f;
             //rotate = false;
             //if (go.rotation == 180) { rotate = true; }
-            //health = go.health;
+            health = go.health;
             
 
 
         }
 
         
-        public int Health
+        public override int Health
         {
             get { return health; }
 
@@ -265,6 +274,7 @@ namespace scrollPlatform
             firetime = 0;
             lighttimer = 0;
             animoveby = 4;
+            health = go.health;
            
         }
 
@@ -273,7 +283,20 @@ namespace scrollPlatform
           get { return fire; }
           set { fire = value; }
         }
-        
+
+        public override int Health
+        {
+            get { return health; }
+
+            set
+            {
+                health = health - value;
+                if (health <= 0)
+                    hit = true;
+            }
+        }
+
+
         public override void Update(GameTime gameTime, Map map)
         {
 
@@ -358,6 +381,7 @@ namespace scrollPlatform
             if (rotate)
                 firedirection = Direction.LEFT;
             else firedirection = Direction.RIGHT;
+            health = go.health;
         }
 
         public bool Fire { get; set; }
@@ -365,6 +389,18 @@ namespace scrollPlatform
         {
             get { return firedirection; }
             set { firedirection = value; }
+        }
+
+        public override int Health
+        {
+            get { return health; }
+
+            set
+            {
+                health = health - value;
+                if (health <= 0)
+                    hit = true;
+            }
         }
 
         public override void Update(GameTime gameTime, Map map)
