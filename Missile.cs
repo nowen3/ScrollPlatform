@@ -118,94 +118,7 @@ namespace scrollPlatform
 
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------
-    class Explosion
-    {
-
-        public float animationinterval;
-        public Vector2 Position;
-        Rectangle imageRectange;
-        readonly Texture2D myimage;
-        float timer;
-        SoundEffect myeffect;
-        int currentFrame;
-        int tilenumbers;
-        protected Rectangle[] foerect;
-        public bool hit;
-
-        public Explosion(ContentManager content, Vector2 startpos)
-        {
-            currentFrame = 0;
-            animationinterval = 50f;
-            myimage = content.Load<Texture2D>("explosion");
-            myeffect = content.Load<SoundEffect>("bomb-sound");
-            tilenumbers = myimage.Width / myimage.Height;
-            foerect = new Rectangle[tilenumbers];
-            for (int i = 0; i <= tilenumbers - 1; i++)
-            {
-                foerect[i] = new Rectangle(myimage.Height * i, 0, myimage.Height, myimage.Height);
-            }
-            timer = 0f;
-            imageRectange = foerect[0];
-            Position = startpos;
-            hit = false;
-            Position.Y = Position.Y - 25;
-
-
-        }
-
-        public Rectangle BoundingBox
-        {
-            get
-            {
-                return new Rectangle((int)Position.X, (int)Position.Y, imageRectange.Width, imageRectange.Height);
-            }
-        }
-
-        public bool Hit
-        {
-            get { return hit; }
-
-            set
-            {
-                hit = value;
-
-            }
-        }
-
-        public void Update(GameTime gameTime)
-        {
-
-            if (currentFrame == 1) { myeffect.Play(); }
-            timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timer > animationinterval)
-            {
-                currentFrame++;
-                if (currentFrame > tilenumbers - 1)
-                {
-
-                    hit = true;
-                    currentFrame = 0;
-
-
-                }
-
-                timer = 0f;
-                imageRectange = foerect[currentFrame];
-
-            }
-
-        }
-
-        public virtual void Draw(SpriteBatch spritebatch)
-        {
-            spritebatch.Draw(myimage, Position, imageRectange, Color.White);
-        }
-
-
-
-    }
-
-    //---------------------------------------------------------------------------------------------------
+   
 
     class HealthAnimate
     {
@@ -264,12 +177,12 @@ namespace scrollPlatform
 
     //---------------------------------------------------------------------------------------
 
-    class Explosion1 : Sprite
+    class Explosion : Sprite
     {
 
 
        
-        public Explosion1(ContentManager content, gameObjects go) : base(content, go)
+        public Explosion(ContentManager content, gameObjects go) : base(content, go)
         {
 
             animationinterval = 50f;
@@ -282,7 +195,7 @@ namespace scrollPlatform
         }
 
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
             if (currentFrame == 1) { sound.Play(); }
