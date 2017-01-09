@@ -14,12 +14,14 @@ namespace scrollPlatform
         private List<Dead> mydead = new List<Dead>();
         private List<HealthAnimate> myhealth = new List<HealthAnimate>();
         private int firecount;
+        private bool playerdead;
         private double missilletimer;
 
         ContentManager content;
         public void LoadSprites(List<gameObjects> gameobs)
         {
             ClearLists();
+            ResetVariables();
             foreach (gameObjects go in gameobs)
             {
                 if (go.name == "StartPoint")
@@ -35,9 +37,10 @@ namespace scrollPlatform
             }
         }
 
-        public void AddMissile()
+      public bool PlayerDead
         {
-
+            get {return playerdead; }
+            set { playerdead = value; }
         }
         public void ClearLists()
         {
@@ -50,6 +53,7 @@ namespace scrollPlatform
         private void ResetVariables()
         {
             firecount = 0;
+            playerdead = false;
         }
 
         private void RemoveHitSprites()
@@ -140,6 +144,10 @@ namespace scrollPlatform
             foreach (HealthAnimate ha in myhealth)
             {
                 ha.Update(gameTime);
+            }
+            if (player.IsDead)
+            {
+                playerdead = true;
             }
             // end update-----------------------------------------------
             CheckCollision();

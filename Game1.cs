@@ -49,8 +49,6 @@ namespace scrollPlatform
         int totalmonsters;
         int level;
         int mylives;
-        //int firecount;
-        //double missilletimer;
         SpriteFont font;
         bool pause;
         bool gotkey = false;
@@ -61,10 +59,7 @@ namespace scrollPlatform
 
 
         List<gameObjects> gameobs = new List<gameObjects>();
-        //List<Sprite> foes = new List<Sprite>();
-        //List<Missile> missile = new List<Missile>();
-        //List<Dead> mydead = new List<Dead>();
-        //List<HealthAnimate> myhealth = new List<HealthAnimate>();
+      
 
         public Game1()
         {
@@ -93,9 +88,6 @@ namespace scrollPlatform
             font = Content.Load<SpriteFont>("numbers");
             LoadGame(appPath + "\\"+ level +".tmx");
             spriteManager = new SpriteManager(Content);
-            spriteManager.LoadSprites(gameobs);
-            //LoadOjects(gameobs);
-
             NewGame();
 
         }
@@ -104,8 +96,6 @@ namespace scrollPlatform
         private void NewGame()
         {
             spriteManager.LoadSprites(gameobs);
-            //  firecount = 0;
-
         }
 
         private void RestartGame()
@@ -121,47 +111,10 @@ namespace scrollPlatform
         private void LoadGame(string TMXfile)
         {
 
-            var mapimage = Content.Load<Texture2D>("TileSet32 x 32");
             Map.Content = Content;
             Map.Loadfile(TMXfile);
             gameobs = Map.GetObjects();
-            
- 
         }
-
-        //private void LoadOjects(List<gameObjects> gameobs)
-        //{
-
-        //    foes.Clear();
-        //    foreach (gameObjects go in gameobs)
-        //    {
-        //        if (go.name == "StartPoint")
-        //        {
-        //            player = new Player(Content,go);
-        //            player.IsDead = false;
-        //            player.Hit = false;
-        //            player.Position = new Vector2(go.xpos, go.ypos);
-        //            //player.Map = Map;
-        //        }
-        //        if (go.name == "Eye")
-        //        {
-        //            foes.Add(new SmallBot(Content, go));
-        //            totalmonsters++;
-        //        }
-        //        if (go.name == "Biggun")
-        //        {
-        //            foes.Add(new BigGun(Content, go));
-        //            totalmonsters++;
-        //        }
-        //        if (go.name == "Drone")
-        //        {
-        //            foes.Add(new Drone(Content, go));
-        //            totalmonsters++;
-        //        }
-        //    }
-        //}
-
-
 
         protected override void UnloadContent()
         {
@@ -187,7 +140,6 @@ namespace scrollPlatform
         protected override void Update(GameTime gameTime)
         {
              GetInput();
-            //missilletimer += gameTime.ElapsedGameTime.TotalMilliseconds;
             if (mylives < 0)
             {
                 RestartGame();
@@ -195,156 +147,17 @@ namespace scrollPlatform
             if (!pause)
             {
                 spriteManager.Update(gameTime);
-                //foreach (Sprite foe in foes)
-                //{
-                //    if (foe is BigGun)
-                //    {
-                //        if ((foe as BigGun).Fire & missile.Count < 10)
-                //        {
-
-                //            if ((foe as BigGun).FireDirection == Direction.LEFT)
-                //                missile.Add(new Missile(Content.Load<Texture2D>("Missile"), foe.Position, Direction.RIGHT, true)); // back to front
-                //            else
-                //                missile.Add(new Missile(Content.Load<Texture2D>("Missile"), foe.Position, Direction.LEFT, true));
-                //        }
-                //    }
-                //    if (foe is Drone)
-                //    {
-
-                //        if ((foe as Drone).Fire & missile.Count < 10)
-                //        {
-                //            var bombpos = new Vector2(foe.Position.X + (foe.BoundingBox.Width/2), foe.Position.Y + foe.BoundingBox.Height);
-                //            missile.Add(new Missile(Content.Load<Texture2D>("bomb"), bombpos , Direction.DOWN, false));
-
-                //        }
-                //    }
-                //    foe.Update(gameTime);
-                //}
-                //if (!player.fire) { firecount = 0; }
-                //if (player.fire && missilletimer > 1000)
-                //{
-
-                //    firecount++;
-                //    if (player.PlayerDirection == Direction.LEFT)
-                //    {
-                //        var playerpos = new Vector2(player.Position.X - 30, player.Position.Y );
-                //        missile.Add(new Missile(Content.Load<Texture2D>("Missile1"), playerpos, Direction.LEFT, false, 100 + (firecount * 20), Owner.PLAYER));
-                //    }
-                //    if (player.PlayerDirection == Direction.RIGHT)
-                //    {
-                //        var playerpos = new Vector2(player.Position.X + 30, player.Position.Y + 40);
-                //        var miss = new Missile(Content.Load<Texture2D>("Missile1"), playerpos, Direction.RIGHT, false, 100 + (firecount * 20), Owner.PLAYER);
-                //        miss.RotateMissile = true;
-                //        missile.Add(miss);
-                //    }
-                //    missilletimer = 0;
-                //}
-
-                //foreach (Dead dead in mydead)
-                //{
-                //    dead.Update(gameTime);
-                //}
-                //foreach(HealthAnimate ha in myhealth)
-                //{
-                //    ha.Update(gameTime);
-                //}
-                //foreach (Missile miss in missile)
-                //{
-                //    miss.Update(gameTime);
-                //    if (Map.GetTileBelow(miss.Position, miss.BoundingBox) == "Solid")
-                //    {
-                //        miss.Hit = true;
-
-                //        foes.Add(new Explosion(Content, GetExplosion(miss)));
-                //    }
-                //}
-
-                //CheckCollision();
-                //player.Update(gameTime);
-                //player.Input( );
-                
                 camera.Update(spriteManager.PlayerPosition, Map.Width, Map.Height);
-                //foes.RemoveAll(x => x.Hit == true);
-                //myhealth.RemoveAll(x => x.Hit == true);
-                //mydead.RemoveAll(x => x.Hit == true);
-                //missile.RemoveAll(x => x.Hit == true);
-                            //if (player.IsDead)
-                            //{
-                            //    mylives--;
-                            //    NewGame();
-                            //}
+               if (spriteManager.PlayerDead)
+                {
+                    mylives--;
+                    NewGame();
+                }
                 base.Update(gameTime);
             } // end pause
         }
 
-        //private void CheckCollision()
-        //{
-        //    foreach (Sprite foe in foes)
-        //    {
-        //        if (foe.BoundingBox.Intersects(player.BoundingBox) && foe.Type == "Foe")
-        //        {
-
-        //            if (player.BoundingBox.Bottom + (foe.BoundingBox.Height / 2) <= foe.BoundingBox.Bottom)
-        //            {
-        //                foe.Hit = true;
-        //                monsterscore++;
-        //                mydead.Add(new Dead(foe.GetImage, foe.Position));
-        //            }
-        //            else
-        //            {
-        //                if (!player.Hit)
-        //                {
-        //                    player.Hit = true;
-
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    foreach (Missile miss in missile)
-        //    {
-        //        if (miss.BoundingBox.Intersects(player.BoundingBox) && miss.Parent == Owner.FOE)
-        //        {
-        //            if (!player.Hit)
-        //            {
-        //                player.Hit = true;
-
-        //            }
-        //        }
               
-        //        if (miss.Parent == Owner.PLAYER)
-        //        {
-        //            foreach (Sprite foe in foes)
-        //            {
-        //                if (miss.BoundingBox.Intersects(foe.BoundingBox))
-        //                {
-        //                    foe.Health = 100;
-        //                    miss.Hit = true;
-        //                    foes.Add(new Explosion(Content, GetExplosion(miss)));
-        //                    myhealth.Add(new HealthAnimate(Content, miss.Position, foe.Health.ToString()));
-        //                    break;
-                           
-        //                }
-
-        //            }
-        //        }
-        //    }
-          
-        //}
-
-        //private gameObjects GetExplosion(Missile sprite)
-        //{
-        //    var go = new gameObjects();
-        //    go.content = "explosion";
-        //    go.xpos = sprite.Position.X;
-        //    go.ypos = sprite.Position.Y;
-        //    go.Sound = "bomb-sound";
-        //    go.height = 50;
-        //    go.width = 50;
-        //    return go;
-        //}
-
-       
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -355,17 +168,6 @@ namespace scrollPlatform
 
             Map.Draw(spriteBatch, gameTime);
             spriteManager.Draw(spriteBatch);
-            //player.Draw(spriteBatch);
-            //foreach (Sprite foe in foes)
-            //    foe.Draw(spriteBatch);
-            //foreach (Dead dead in mydead)
-            //    dead.Draw(spriteBatch);
-            //foreach (Missile miss in missile)
-            //    miss.Draw(spriteBatch);
-            //foreach (HealthAnimate ha in myhealth)
-            //    ha.Draw(spriteBatch);
-
-
             spriteBatch.End();
 
             spriteBatch.Begin();
