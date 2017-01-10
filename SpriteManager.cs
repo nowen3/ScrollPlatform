@@ -13,8 +13,7 @@ namespace scrollPlatform
         private List<Missile> missile = new List<Missile>();
         private List<Dead> mydead = new List<Dead>();
         private List<HealthAnimate> myhealth = new List<HealthAnimate>();
-        private int firecount;
-        private bool playerdead;
+        private bool playerdead, atexit;
         private double missilletimer;
 
         ContentManager content;
@@ -26,6 +25,7 @@ namespace scrollPlatform
             {
                 if (go.name == "StartPoint")
                 {
+                    if (player == null)
                     player = new Player(content, go);
                     player.IsDead = false;
                     player.Hit = false;
@@ -42,6 +42,12 @@ namespace scrollPlatform
             get {return playerdead; }
             set { playerdead = value; }
         }
+
+        public bool AtExit
+        {
+            get { return atexit; }
+            set { atexit = value; }
+        }
         public void ClearLists()
         {
             foes.Clear();
@@ -52,7 +58,7 @@ namespace scrollPlatform
 
         private void ResetVariables()
         {
-            firecount = 0;
+           
             playerdead = false;
         }
 
@@ -106,20 +112,20 @@ namespace scrollPlatform
             }
             // update player--------------------------------------------
             missilletimer += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (!player.fire) { firecount = 0; }
-            if (player.fire && missilletimer > 1000)
+            
+            if (player.Fire && missilletimer > 1000)
             {
 
-                firecount++;
+                
                 if (player.PlayerDirection == Direction.LEFT)
                 {
                     var playerpos = new Vector2(player.Position.X - 30, player.Position.Y);
-                    missile.Add(new Missile(content.Load<Texture2D>("Missile1"), playerpos, Direction.LEFT, false, 100 + (firecount * 20), Owner.PLAYER));
+                    missile.Add(new Missile(content.Load<Texture2D>("Missile1"), playerpos, Direction.LEFT, false, 100 + player.FireStrength, Owner.PLAYER));
                 }
                 if (player.PlayerDirection == Direction.RIGHT)
                 {
                     var playerpos = new Vector2(player.Position.X + 30, player.Position.Y + 40);
-                    var miss = new Missile(content.Load<Texture2D>("Missile1"), playerpos, Direction.RIGHT, false, 100 + (firecount * 20), Owner.PLAYER);
+                    var miss = new Missile(content.Load<Texture2D>("Missile1"), playerpos, Direction.RIGHT, false, 100 + player.FireStrength , Owner.PLAYER);
                     miss.RotateMissile = true;
                     missile.Add(miss);
                 }
@@ -148,6 +154,10 @@ namespace scrollPlatform
             if (player.IsDead)
             {
                 playerdead = true;
+            }
+            if (player.AtExit)
+            {
+                atexit = true;
             }
             // end update-----------------------------------------------
             CheckCollision();
@@ -191,7 +201,7 @@ namespace scrollPlatform
                 {
                     foreach (Sprite foe in foes)
                     {
-                        if (miss.BoundingBox.Intersects(foe.BoundingBox))
+                        if (miss.BoundingBox.Intersects(foe.BoundingBox) && (foe is Explosion) == false)
                         {
                             foe.Health = 100;
                             miss.Hit = true;

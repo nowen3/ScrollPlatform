@@ -40,7 +40,7 @@ namespace scrollPlatform
         SpriteBatch spriteBatch;
         Texture2D Background;
         Texture2D lives;
-        Player player;
+       // Player player;
         
        
         int score = 0;
@@ -74,6 +74,19 @@ namespace scrollPlatform
             graphics.ApplyChanges();
            
             base.Initialize();
+        }
+
+        private void NewLevel()
+        {
+            level++;
+            score = 0;
+            monsterscore = 0;
+            if (File.Exists(appPath + "\\" + level + ".tmx"))
+            {
+                LoadGame(appPath + "\\" + level + ".tmx");
+                spriteManager.LoadSprites(gameobs);
+            }
+
         }
 
         protected override void LoadContent()
@@ -114,6 +127,7 @@ namespace scrollPlatform
             Map.Content = Content;
             Map.Loadfile(TMXfile);
             gameobs = Map.GetObjects();
+            Background = Content.Load<Texture2D>(Map.BackGroundImage);
         }
 
         protected override void UnloadContent()
@@ -153,6 +167,11 @@ namespace scrollPlatform
                     mylives--;
                     NewGame();
                 }
+                if (spriteManager.AtExit)
+                {
+
+                    NewLevel();
+                }
                 base.Update(gameTime);
             } // end pause
         }
@@ -165,6 +184,7 @@ namespace scrollPlatform
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
                                 null, null, null, null,
                                 camera.Transform);
+            spriteBatch.Draw(Background, Vector2.Zero);
 
             Map.Draw(spriteBatch, gameTime);
             spriteManager.Draw(spriteBatch);
