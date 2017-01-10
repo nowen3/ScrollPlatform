@@ -25,7 +25,7 @@ namespace scrollPlatform
         static List<gameObjects> gameobjects;
         static List<Tile> mytiles = new List<Tile>();
         static List<AnimateTile> myanimatetiles = new List<AnimateTile>();
-        static List<AnimateTile> antiles = new List<AnimateTile>();
+        static List<animate> antiles = new List<animate>();
         private static int screenwidth, screenheight;
 
         public static int Width
@@ -49,6 +49,18 @@ namespace scrollPlatform
 
         public static void Loadfile(string fname)
         {
+            
+            if (mapcords != null)
+            {
+                Array.Clear(mapcords, 0, mapcords.Length);
+                Array.Clear(mapanimatecords, 0, mapanimatecords.Length);
+                Array.Clear(TileType, 0, TileType.Length);
+                Array.Clear(TileTypeAnimate, 0, TileTypeAnimate.Length);
+                mytiles.Clear();
+                gameobjects.Clear();
+                myanimatetiles.Clear();
+                antiles.Clear();
+            }
             ID = Convert.ToInt32(Path.GetFileNameWithoutExtension(fname));
             gameobjects = new List<gameObjects>();
             //load TMX file
@@ -79,7 +91,7 @@ namespace scrollPlatform
             var  mapimage = Content.Load<Texture2D>(Path.GetFileNameWithoutExtension(tmxmap.SpriteSheetSource));
             Texture2D[] imagetile;
             imagetile =SpriteUtils.Split(mapimage, tilewidth, tileheight);
-            var antiles = tmxmap.anTiles;
+            antiles = tmxmap.anTiles;
             foreach (var at in antiles)
             {
                 // create animated tiles for map
