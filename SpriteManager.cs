@@ -36,6 +36,10 @@ namespace scrollPlatform
                 if (go.name == "Biggun") { foes.Add(new BigGun(content, go)); }
                 if (go.name == "Drone") { foes.Add(new Drone(content, go)); }
                 if (go.name == "RoofLaser") { foes.Add(new Rooflaser(content, go)); }
+                if (go.name == "Platform")
+                {
+                    foes.Add(new MovingPlatform(content, go));
+                }
             }
         }
 
@@ -187,7 +191,7 @@ namespace scrollPlatform
                     {
                         if ((foe is Rooflaser) && (foe as Rooflaser).Active == false)
                         {
-                            // do nothing
+                            player.Hit = false;
                         }
                         else
                         {
@@ -195,6 +199,31 @@ namespace scrollPlatform
                         }
                     }
 
+                }
+                player.onplatform = false;
+                if (foe.BoundingBox.Intersects(player.BoundingBox) &&  foe.Type == "MovingPlatform")
+                {
+
+                     int plattop = foe.BoundingBox.Top; // y top
+                    int marbottom = player.BoundingBox.Bottom; // y bottom
+                    int marright = player.BoundingBox.Right; // x left
+                    if ((marright - 26) < foe.BoundingBox.Right)
+                    {
+                        if (plattop - marbottom < 2)
+                        {
+
+                            player.onplatform = true;
+                            if ((foe as MovingPlatform).MoveType == "Vertical")
+                            {
+                                player.Position = new Vector2(player.Position.X, foe.Position.Y - player.BoundingBox.Height);
+
+                            }
+                            else
+                            {
+                                player.Position = new Vector2(foe.Position.X, foe.Position.Y - player.BoundingBox.Height);
+                            }
+                        }
+                    }
                 }
             }
 

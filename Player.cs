@@ -106,7 +106,10 @@ namespace scrollPlatform
             set
             {
                 hit = value;
-                jump = true;
+                if (hit)
+                {
+                    jump = true;
+                }
                 
 
             }
