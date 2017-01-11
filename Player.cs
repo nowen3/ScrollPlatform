@@ -107,7 +107,7 @@ namespace scrollPlatform
             {
                 hit = value;
                 jump = true;
-                // dead.Play();
+                
 
             }
         }
@@ -126,6 +126,7 @@ namespace scrollPlatform
 
         public void Update(GameTime gameTime)
         {
+            
             falling = false;
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
            currentKBState = Keyboard.GetState();

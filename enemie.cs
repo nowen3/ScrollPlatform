@@ -364,9 +364,47 @@ namespace scrollPlatform
             }
         }
 
+    }
+    //---------roof lazor----------------------------------
+    class Rooflaser : Sprite
+    {
 
+        private bool active;
 
+        public Rooflaser(ContentManager content, gameObjects go) : base(content, go)
+        {
+
+            animationinterval = 2000f;
+            imageRectange = foerect[0];
+            position = new Vector2(go.xpos, go.ypos);
+            hit = false;
+            active = false;
+        }
+
+        public bool Active
+        {
+            get { return active; }
+        }
+        public override void Update(GameTime gameTime)
+        {
+            active = false;
+            if (currentFrame == 0 ) { active = true; }
+            timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (timer > animationinterval)
+            {
+                currentFrame++;
+                if (currentFrame > tilenumbers - 1)
+                {
+                    currentFrame = 0;
+                }
+                timer = 0f;
+                imageRectange = foerect[currentFrame];
+
+            }
+
+        }
 
 
     }
+
 }

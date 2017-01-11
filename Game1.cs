@@ -91,7 +91,7 @@ namespace scrollPlatform
 
         protected override void LoadContent()
         {
-            level = 1;
+            level = 2;
             pause = false;
             mylives = 3;
             

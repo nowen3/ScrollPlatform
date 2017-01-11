@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace scrollPlatform
 {
@@ -34,6 +35,7 @@ namespace scrollPlatform
                 if (go.name == "Eye") { foes.Add(new SmallBot(content, go)); }
                 if (go.name == "Biggun") { foes.Add(new BigGun(content, go)); }
                 if (go.name == "Drone") { foes.Add(new Drone(content, go)); }
+                if (go.name == "RoofLaser") { foes.Add(new Rooflaser(content, go)); }
             }
         }
 
@@ -175,14 +177,24 @@ namespace scrollPlatform
 
                     if (player.BoundingBox.Bottom + (foe.BoundingBox.Height / 2) <= foe.BoundingBox.Bottom)
                     {
-                        foe.Hit = true;
-                        mydead.Add(new Dead(foe.GetImage, foe.Position));
+                        if ((foe is Rooflaser) == false)
+                        {
+                            foe.Hit = true;
+                            mydead.Add(new Dead(foe.GetImage, foe.Position));
+                        }
                     }
                     else if (!player.Hit)
+                    {
+                        if ((foe is Rooflaser) && (foe as Rooflaser).Active == false)
+                        {
+                            // do nothing
+                        }
+                        else
                         {
                             player.Hit = true;
                         }
-                  
+                    }
+
                 }
             }
 
