@@ -25,20 +25,20 @@ namespace scrollPlatform
         Direction direction;
         Owner parent;
 
-        public Missile(Texture2D content, Vector2 startpos, Direction Dir, bool randomspeed , float hvelocity = 300, Owner myparent = Owner.FOE)
+        public Missile(Texture2D content, Vector2 startpos, Direction Dir, bool randomspeed, float hvelocity = 300, Owner myparent = Owner.FOE)
         {
             Position = startpos;
-          //  Position.X = Position.X - 25;
+            //  Position.X = Position.X - 25;
             r = new Random();
             myimage = content;
-           // myeffect = content.Load<SoundEffect>("MissileWav");
+            // myeffect = content.Load<SoundEffect>("MissileWav");
             imageRectange = new Rectangle(0, 0, myimage.Width, myimage.Height);
             timer = 0f;
             totaltime = 0f;
             if (randomspeed) { horizontalVelocity = r.Next(200, 400); }
             else horizontalVelocity = hvelocity;
             //horizontalVelocity = randomspeed ? r.Next(200, 400) : 300;
-            if (Dir == Direction.RIGHT )
+            if (Dir == Direction.RIGHT)
             {
                 Position.Y = Position.Y - 36;
             }
@@ -52,7 +52,7 @@ namespace scrollPlatform
             initvelocity = 7;
             startposX = Position.X;
             parent = myparent;
-           
+
         }
 
         public bool Hit
@@ -69,7 +69,7 @@ namespace scrollPlatform
 
         public bool RotateMissile
         {
-           set { rotatemissile = value; }
+            set { rotatemissile = value; }
         }
 
         public Rectangle BoundingBox
@@ -107,103 +107,18 @@ namespace scrollPlatform
         {
             if (!hit)
             {
-                if(rotatemissile)
+                if (rotatemissile)
                 {
                     spritebatch.Draw(myimage, Position, null, Color.White, (float)Math.PI, new Vector2(imageRectange.Width, imageRectange.Height), 1, SpriteEffects.None, 0);
                 }
                 else
-                spritebatch.Draw(myimage, Position, imageRectange, Color.White);
+                    spritebatch.Draw(myimage, Position, imageRectange, Color.White);
             }
         }
 
     }
-
-    class Explosion
-    {
-
-        public float animationinterval;
-        public Vector2 Position;
-        Rectangle imageRectange;
-        readonly Texture2D myimage;
-        float timer;
-        SoundEffect myeffect;
-        int currentFrame;
-        int tilenumbers;
-        protected Rectangle[] foerect;
-        public bool hit;
-  
-        public Explosion(ContentManager content, Vector2 startpos)
-        {
-            currentFrame = 0;
-            animationinterval = 50f;
-            myimage = content.Load<Texture2D>("explosion");
-            myeffect = content.Load<SoundEffect>("bomb-sound");
-            tilenumbers = myimage.Width / myimage.Height;
-            foerect = new Rectangle[tilenumbers];
-            for (int i = 0; i <= tilenumbers - 1; i++)
-            {
-                foerect[i] = new Rectangle(myimage.Height * i, 0, myimage.Height, myimage.Height);
-            }
-            timer = 0f;
-            imageRectange = foerect[0];
-            Position = startpos;
-            hit = false;
-            Position.Y = Position.Y - 25;
-            
-
-        }
-
-        public Rectangle BoundingBox
-        {
-            get
-            {
-                return new Rectangle((int)Position.X, (int)Position.Y, imageRectange.Width, imageRectange.Height);
-            }
-        }
-
-        public bool Hit
-        {
-            get { return hit; }
-
-            set
-            {
-                hit = value;
-               
-            }
-        }
-
-        public void Update(GameTime gameTime)
-        {
-
-            if (currentFrame == 1) { myeffect.Play(); }
-            timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timer > animationinterval)
-            {
-                currentFrame++;
-                if (currentFrame > tilenumbers - 1)
-                {
-                    
-                    hit = true;
-                    currentFrame = 0;
-                   
-
-                }
-
-                timer = 0f;
-                imageRectange = foerect[currentFrame];
-
-            }
-
-        }
-
-        public virtual void Draw(SpriteBatch spritebatch)
-        {
-            spritebatch.Draw(myimage, Position, imageRectange, Color.White);
-        }
-
-
-
-    }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------
+   
 
     class HealthAnimate
     {
@@ -240,7 +155,7 @@ namespace scrollPlatform
                 }
 
                 timer = 0f;
-                
+
 
             }
 
@@ -250,7 +165,7 @@ namespace scrollPlatform
         {
             get { return hit; }
 
-            set { hit = value;}
+            set { hit = value; }
         }
 
         public void Draw(SpriteBatch spritebacth)
@@ -260,4 +175,50 @@ namespace scrollPlatform
         }
     }
 
+    //---------------------------------------------------------------------------------------
+
+    class Explosion : Sprite
+    {
+
+
+       
+        public Explosion(ContentManager content, gameObjects go) : base(content, go)
+        {
+
+            animationinterval = 50f;
+            imageRectange = foerect[0];
+            position = new Vector2(go.xpos, go.ypos);
+            hit = false;
+            position.Y = Position.Y - 25;
+
+
+        }
+
+
+        public override void Update(GameTime gameTime)
+        {
+
+            if (currentFrame == 1) { sound.Play(); }
+            timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (timer > animationinterval)
+            {
+                currentFrame++;
+                if (currentFrame > tilenumbers - 1)
+                {
+
+                    hit = true;
+                    currentFrame = 0;
+
+
+                }
+
+                timer = 0f;
+                imageRectange = foerect[currentFrame];
+
+            }
+
+        }
+
+
+    }
 }

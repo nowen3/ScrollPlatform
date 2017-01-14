@@ -47,6 +47,7 @@ namespace scrollPlatform
             animationinterval = 100f;
             rotate = false;
             if (go.rotation == 180) { rotate = true; }
+            hit = false;
         }
 
         public bool Hit
@@ -59,6 +60,14 @@ namespace scrollPlatform
                 if (sound != null)
                     sound.Play();
             }
+        }
+
+        public virtual int Health
+        {
+            get { return health; }
+
+            set { health = health - value; }
+    
         }
 
         public string Type
@@ -78,20 +87,12 @@ namespace scrollPlatform
             get { return myimage; }
         }
 
-        public virtual int Health
-        {
-            get { return health; }
-
-            set { health = health - value;}
-        }
-
-
         public Rectangle BoundingBox
         {
             get { return new Rectangle((int)position.X, (int)position.Y, imageRectange.Width, imageRectange.Height); }
         }
 
-        public virtual void Update(GameTime gameTime, Map map)
+        public virtual void Update(GameTime gameTime)
         {
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (timer > animationinterval)
@@ -119,51 +120,20 @@ namespace scrollPlatform
         }
 
     }
-
-
-
-
-    class enemie: Sprite
+//-----------------------------------------------------------------------------------------------------------------------------------
+    class SmallBot: Sprite
     {
         protected int animoveby;
         protected bool direction;
-        //protected int health;
-        //protected SoundEffect myeffect;
-        
-        public enemie(ContentManager content, gameObjects go) : base(content, go)
+               
+        public SmallBot(ContentManager content, gameObjects go) : base(content, go)
 
         {
-            
-            //myimage = content.Load<Texture2D>(go.content);
-            //if (!string.IsNullOrEmpty(go.Sound))
-            //{
-            //    myeffect = content.Load<SoundEffect>(go.Sound);
-            //}
-            //if (!string.IsNullOrEmpty(go.type))
-            //{
-            //    Type = go.type;
-            //}
-            //tilenumbers = (myimage.Width / go.width);
-            //foerect = new Rectangle[tilenumbers];
-            //for (int i = 0; i <= tilenumbers - 1; i++)
-            //{
-            //    foerect[i] = new Rectangle(go.width * i, 0, go.width, go.height);
-            //}
             animoveby = 4;
             timer = 0f;
-            //imageRectange = foerect[0];
-            //position = new Vector2(go.xpos, go.ypos);
-           // hit = false;
-            
             direction = false;
-            //currentFrame = 0;
             animationinterval = 200f;
-            //rotate = false;
-            //if (go.rotation == 180) { rotate = true; }
             health = go.health;
-            
-
-
         }
 
         
@@ -179,28 +149,14 @@ namespace scrollPlatform
             }
         }
 
-        //public Vector2 Position
-        //{
-        //    get { return position; }
-        //    set { position = value; }
-        //}
-
-
-        //public Rectangle BoundingBox
-        //{
-        //    get
-        //    {
-        //        return new Rectangle((int)position.X, (int)position.Y, imageRectange.Width, imageRectange.Height);
-        //    }
-        //}
-
-        public override void Update(GameTime gameTime, Map map)
+      
+        public override void Update(GameTime gameTime)
         {
             int frame = 0;
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            string below = map.GetTileBelow(position, imageRectange);
-            string frontr = map.GetTileRight(position, imageRectange);
-            string frontl = map.GetTileLeft(position, imageRectange);
+            string below = Map.GetTileBelow(position, imageRectange);
+            string frontr = Map.GetTileRight(position, imageRectange);
+            string frontl = Map.GetTileLeft(position, imageRectange);
 
             if (timer > animationinterval)
             {
@@ -242,33 +198,19 @@ namespace scrollPlatform
         }
 
 
-        //public override void Draw(SpriteBatch spritebatch)
-        //{
-
-        //    if (rotate)
-        //    {
-        //        Vector2 pos = new Vector2(imageRectange.Width / 2, imageRectange.Height);
-        //        spritebatch.Draw(myimage, position, imageRectange, Color.White, 0, pos, 1, SpriteEffects.FlipHorizontally, 0);
-        //    }
-        //    else
-        //        spritebatch.Draw(myimage, position, imageRectange, Color.White);
-        //}
     }
-
+    //-----------------------------------------------------------------------------------------------------------------------------------
     class Drone : Sprite
     {
 
         int inc;
         protected int animoveby;
-
         float firetime, lighttimer;
         bool fire;
 
         public Drone(ContentManager content, gameObjects go) : base(content, go)
         {
             animationinterval = 50;
-           // currentFrame = 0;
-           // tilenumbers = myimage.Width / go.width;
             inc = 0;
             fire = false;
             firetime = 0;
@@ -296,13 +238,12 @@ namespace scrollPlatform
             }
         }
 
-
-        public override void Update(GameTime gameTime, Map map)
+        public override void Update(GameTime gameTime)
         {
 
             fire = false;
-            string below = map.GetTileBelow(position, imageRectange);
-            string right = map.GetTileRight(position, imageRectange);
+            string below = Map.GetTileBelow(position, imageRectange);
+            string right = Map.GetTileRight(position, imageRectange);
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             firetime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             lighttimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -346,9 +287,9 @@ namespace scrollPlatform
             }
 
            
-            if (position.X + imageRectange.Width >= map.Width )
+            if (position.X + imageRectange.Width >= Map.Width )
             {
-                position.X = map.Width - imageRectange.Width;
+                position.X = Map.Width - imageRectange.Width;
                 animoveby = -animoveby;
             }
             if (position.Y < 0) position.Y = 0;
@@ -359,12 +300,8 @@ namespace scrollPlatform
             }
         }
 
-
-
-
-
     }
-
+    //-----------------------------------------------------------------------------------------------------------------------------------
     class BigGun : Sprite
     {
 
@@ -374,8 +311,6 @@ namespace scrollPlatform
         public BigGun(ContentManager content, gameObjects go) : base(content, go)
         {
             animationinterval = 300f;
-            currentFrame = 0;
-            tilenumbers = myimage.Width / go.width;
             inc = 0;
             Fire = false;
             if (rotate)
@@ -403,7 +338,7 @@ namespace scrollPlatform
             }
         }
 
-        public override void Update(GameTime gameTime, Map map)
+        public override void Update(GameTime gameTime)
         {
 
             Fire = false;
@@ -429,9 +364,47 @@ namespace scrollPlatform
             }
         }
 
+    }
+    //---------roof lazor----------------------------------
+    class Rooflaser : Sprite
+    {
 
+        private bool active;
 
+        public Rooflaser(ContentManager content, gameObjects go) : base(content, go)
+        {
+
+            animationinterval = 2000f;
+            imageRectange = foerect[0];
+            position = new Vector2(go.xpos, go.ypos);
+            hit = false;
+            active = false;
+        }
+
+        public bool Active
+        {
+            get { return active; }
+        }
+        public override void Update(GameTime gameTime)
+        {
+            active = false;
+            if (currentFrame == 0 ) { active = true; }
+            timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (timer > animationinterval)
+            {
+                currentFrame++;
+                if (currentFrame > tilenumbers - 1)
+                {
+                    currentFrame = 0;
+                }
+                timer = 0f;
+                imageRectange = foerect[currentFrame];
+
+            }
+
+        }
 
 
     }
+
 }

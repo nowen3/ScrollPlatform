@@ -14,7 +14,7 @@ namespace scrollPlatform
         float timer;
         private int animoveby, counter, tilenumbers;
 
-        private float horizontalVelocity;
+       // private float horizontalVelocity;
         
         public Dead(Texture2D image, Vector2 startpos)
         {

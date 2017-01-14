@@ -45,10 +45,12 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Missile.cs" />
+    <Compile Include="Platform.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pyhsics.cs" />
+    <Compile Include="SpriteManager.cs" />
     <Compile Include="SpriteUtils.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TMXload.cs" />

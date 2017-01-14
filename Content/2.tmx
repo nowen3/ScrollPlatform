@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="25" tilewidth="32" tileheight="32" nextobjectid="10">
+ <properties>
+  <property name="Background" value="background1"/>
+ </properties>
+ <tileset firstgid="1" name="TileSet32 x 32" tilewidth="32" tileheight="32" tilecount="44" columns="11">
+  <image source="TileSet32 x 32.png" width="352" height="128"/>
+  <tile id="0">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="TileType" value="Animate"/>
+    <property name="Type" value="Death"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="TileType" value="Animate"/>
+    <property name="Type" value="Death"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="TileType" value="Animate"/>
+    <property name="Type" value="Death"/>
+   </properties>
+   <animation>
+    <frame tileid="6" duration="100"/>
+    <frame tileid="7" duration="100"/>
+    <frame tileid="8" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="TileType" value="Animate"/>
+    <property name="Type" value="Death"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="TileType" value="Animate"/>
+    <property name="Type" value="Death"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="TileType" value="Animate"/>
+    <property name="Type" value="Death"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="TileType" value="Animate"/>
+    <property name="Type" value="Death"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Nothing"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Death"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Exit"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Solid"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="TileType" value="Static"/>
+    <property name="Type" value="Ladder"/>
+   </properties>
+  </tile>
+ </tileset>
+ <imagelayer name="Image Layer 1">
+  <image source="backgroun2.png" width="2048" height="800"/>
+ </imagelayer>
+ <layer name="Solid" width="64" height="25">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="1" name="StartPoint" type="Player" x="9.64" y="587.303" width="25" height="50">
+   <properties>
+    <property name="Content" value="robot_sheet"/>
+   </properties>
+  </object>
+  <object id="2" name="Eye" type="Foe" x="498.18" y="643.818" width="30" height="30">
+   <properties>
+    <property name="Content" value="Eye"/>
+    <property name="Health" value="200"/>
+    <property name="Sound" value="squish"/>
+   </properties>
+  </object>
+  <object id="3" name="Eye" type="Foe" x="252" y="644" width="30" height="30">
+   <properties>
+    <property name="Content" value="Eye"/>
+    <property name="Health" value="200"/>
+    <property name="Sound" value="squish"/>
+   </properties>
+  </object>
+  <object id="4" name="Eye" type="Foe" x="1580.15" y="643.333" width="30" height="30">
+   <properties>
+    <property name="Content" value="Eye"/>
+    <property name="Health" value="200"/>
+    <property name="Sound" value="squish"/>
+   </properties>
+  </object>
+  <object id="5" name="Eye" type="Foe" x="1776.3" y="659.061" width="30" height="30">
+   <properties>
+    <property name="Content" value="Eye"/>
+    <property name="Health" value="200"/>
+    <property name="Sound" value="squish"/>
+   </properties>
+  </object>
+  <object id="7" name="Drone" type="Foe" x="749.52" y="431.152" width="100" height="50">
+   <properties>
+    <property name="Content" value="Drone"/>
+    <property name="Health" value="500"/>
+    <property name="Sound" value=""/>
+   </properties>
+  </object>
+  <object id="9" name="Eye" type="Foe" x="778" y="643" width="30" height="30">
+   <properties>
+    <property name="Content" value="Eye"/>
+    <property name="Health" value="200"/>
+    <property name="Sound" value="squish"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
