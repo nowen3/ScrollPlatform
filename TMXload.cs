@@ -69,7 +69,7 @@ namespace scrollPlatform
             get { return gameobjects; }
         }
 
-        public void GetRootProperties(XDocument xdoc)
+        private void GetRootProperties(XDocument xdoc)
         {
 
             rows = Convert.ToInt32(xdoc.Root.Attribute("width").Value);
@@ -86,7 +86,7 @@ namespace scrollPlatform
 
         }
 
-        public string RemoveLineEndings(string value)
+        private string RemoveLineEndings(string value)
         {
             if (String.IsNullOrEmpty(value))
             {
@@ -98,14 +98,14 @@ namespace scrollPlatform
             return value.Replace("\r\n", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty).Replace(lineSeparator, string.Empty).Replace(paragraphSeparator, string.Empty);
         }
 
-        public void GetLayerMap(XDocument xdoc)
+        private void GetLayerMap(XDocument xdoc, string name)
         {
             int arow, acol;
             arow = acol = 0;
             var layerList = from el in xdoc.Descendants("layer") select el;
             foreach (var layer in layerList)
             {
-                if (layer.Attribute("name").Value == "Solid")
+                if (layer.Attribute("name").Value == name)
                 {
                     int lrows = Convert.ToInt32(layer.Attribute("width").Value);
                     int lcols = Convert.ToInt32(layer.Attribute("height").Value);
@@ -130,7 +130,7 @@ namespace scrollPlatform
 
         }
 
-        public void GetObjects(XDocument xdoc)
+        private void GetObjects(XDocument xdoc)
         {
             var objectList = from el in xdoc.Descendants("objectgroup").Descendants("object") select el;
 
@@ -185,7 +185,7 @@ namespace scrollPlatform
             }
         }
 
-        public void GetTileSet(XDocument xdoc)
+        private void GetTileSet(XDocument xdoc)
         {
             var childList = from tset in xdoc.Descendants("tileset") select tset;
 
@@ -232,6 +232,10 @@ namespace scrollPlatform
             }
 
         }
+        public void LoadMapBtName(string name)
+        {
+           // GetLayerMap(xdoc, name);
+        }
 
         public void LoadXMLfile()
         {
@@ -240,7 +244,7 @@ namespace scrollPlatform
             GetRootProperties(xdoc);
             GetTileSet(xdoc);
             GetObjects(xdoc);
-            GetLayerMap(xdoc); 
+            GetLayerMap(xdoc, "Solid"); 
         }
     }
 }

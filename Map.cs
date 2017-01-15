@@ -52,14 +52,7 @@ namespace scrollPlatform
             
             if (mapcords != null)
             {
-                Array.Clear(mapcords, 0, mapcords.Length);
-                Array.Clear(mapanimatecords, 0, mapanimatecords.Length);
-                Array.Clear(TileType, 0, TileType.Length);
-                Array.Clear(TileTypeAnimate, 0, TileTypeAnimate.Length);
-                mytiles.Clear();
-                gameobjects.Clear();
-                myanimatetiles.Clear();
-                antiles.Clear();
+                ResetValues();
             }
             ID = Convert.ToInt32(Path.GetFileNameWithoutExtension(fname));
             gameobjects = new List<gameObjects>();
@@ -132,14 +125,27 @@ namespace scrollPlatform
 
         }
 
-       
+        private static void ResetValues()
+        {
+            Array.Clear(mapcords, 0, mapcords.Length);
+            Array.Clear(mapanimatecords, 0, mapanimatecords.Length);
+            Array.Clear(TileType, 0, TileType.Length);
+            Array.Clear(TileTypeAnimate, 0, TileTypeAnimate.Length);
+            mytiles.Clear();
+            gameobjects.Clear();
+            myanimatetiles.Clear();
+            antiles.Clear();
+        }
+
+
+
         public static List<gameObjects> GetObjects()
         {
             return gameobjects;
         }
 
 
-        public static string GetTile(float x, float y)
+        private static string GetTile(float x, float y)
         {
             string result = "Nothing";
             if (x < 0 || x > Constants.ScreenWidth)
@@ -164,7 +170,7 @@ namespace scrollPlatform
                 return result;
         }
 
-        public static Tile GetTileB(float x, float y)
+        public static Tile GetTileBottom(float x, float y)
         {
             Tile result = null;
             if (y > screenheight) y =screenheight;

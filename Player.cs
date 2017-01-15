@@ -221,7 +221,7 @@ namespace scrollPlatform
             AtExit = false;
             falling = false;
 
-           var tileb = Map.GetTileB(position.X + (image.Width / 2), position.Y + image.Height); // gets the tile below you
+           var tileb = Map.GetTileBottom(position.X + (image.Width / 2), position.Y + image.Height); // gets the tile below you
             below = Map.GetTileBelow(position, image);
             above = Map.GetTileAbove(position, image);
             right = Map.GetTileRight(position, image);
