@@ -109,6 +109,7 @@ namespace scrollPlatform
                 if (hit)
                 {
                     jump = true;
+                   
                 }
                 
 
@@ -204,6 +205,7 @@ namespace scrollPlatform
                     }
 
                 }
+                Debug.WriteLine(below);
 
                 if (currentKBState.IsKeyDown(Keys.Space) & below != "Nothing")
                 {
