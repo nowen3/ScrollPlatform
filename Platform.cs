@@ -52,7 +52,7 @@ namespace scrollPlatform
                 direction = !direction;
                 moved = 0;
             }
-            string below = Map.GetTileBelow(Position, imageRectange);
+          //  string below = Map.GetTileBelow(Position, imageRectange);
             if (timer > animationinterval)
             {
                 if (direction)

@@ -90,6 +90,7 @@ namespace scrollPlatform
 
         public void Update(GameTime gameTime)
         {
+            
             // update foes----------------------------------
             foreach (Sprite foe in foes)
             {
@@ -200,11 +201,12 @@ namespace scrollPlatform
                     }
 
                 }
-                player.onplatform = false;
+              //  bool temponplat = player.Onplatform;
+                player.Onplatform = false;
                 if (foe.BoundingBox.Intersects(player.BoundingBox) &&  foe.Type == "MovingPlatform")
                 {
-
-                     int plattop = foe.BoundingBox.Top; // y top
+                    Debug.WriteLine("ON");
+                    int plattop = foe.BoundingBox.Top; // y top
                     int marbottom = player.BoundingBox.Bottom; // y bottom
                     int marright = player.BoundingBox.Right; // x left
                     if ((marright - 26) < foe.BoundingBox.Right)
@@ -212,19 +214,26 @@ namespace scrollPlatform
                         if (plattop - marbottom < 2)
                         {
 
-                            player.onplatform = true;
+                            player.Onplatform = true;
                             if ((foe as MovingPlatform).MoveType == "Vertical")
                             {
                                 player.Position = new Vector2(player.Position.X, foe.Position.Y - player.BoundingBox.Height);
+
 
                             }
                             else
                             {
                                 player.Position = new Vector2(foe.Position.X, foe.Position.Y - player.BoundingBox.Height);
+
                             }
                         }
+
                     }
+                    
+                    
                 }
+               // if (player.Onplatform ==  false) { player.Onplatform = temponplat; }
+                
             }
 
             foreach (Missile miss in missile)

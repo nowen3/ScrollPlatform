@@ -20,10 +20,10 @@ namespace scrollPlatform
         float timer;
         Direction mydirection;
         private int fireStrength;
-        private bool fire, jump, falling, hit, atexit;
+        private bool fire, jump, falling, hit, atexit, onplatform;
         string below, left, right, above;
         SoundEffect jumpsound;
-        public bool onplatform, HasKey ;
+        public bool HasKey ;
 
         public Player(ContentManager content, gameObjects go)
         {
@@ -71,10 +71,11 @@ namespace scrollPlatform
             set { position = value; }
         }
 
-        //public Map MyMap
-        //{
-        //    set { map = value; }
-        //}
+        public bool Onplatform
+        {
+            set { onplatform = value; }
+            get { return onplatform ; }
+        }
 
         public bool Fire
         {
@@ -131,16 +132,21 @@ namespace scrollPlatform
         public void Update(GameTime gameTime)
         {
             
-            falling = false;
+           
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
            currentKBState = Keyboard.GetState();
+            below = Map.GetTileBelow(position, image);
+            above = Map.GetTileAbove(position, image);
+            right = Map.GetTileRight(position, image);
+            if (right == "Exit") { atexit = true; }
             
+
             if (!hit)
             {
+               // Debug.WriteLine(onplatform);
                 if (currentKBState.IsKeyDown(Keys.F) && currentKBState.IsKeyDown(Keys.Up))
                 {
                     fireStrength++;
-                    Debug.WriteLine(fireStrength);
                 }
                 if (currentKBState.IsKeyDown(Keys.F) && currentKBState.IsKeyDown(Keys.Down))
                 {
@@ -166,23 +172,27 @@ namespace scrollPlatform
                     fireStrength = 1;
                 }
 
-                if (currentKBState.IsKeyDown(Keys.Left) & !falling)
+                if (currentKBState.IsKeyDown(Keys.Left) )
                 {
                     left = Map.GetTileLeft(position, image);
                     if (left == "Nothing" | left == "Ladder")
                     {
-                        AnimateLeft();
+                       // AnimateLeft();
+                        AnimateDirection(Direction.LEFT);
                         position.X -= animoveby;
                     }
 
                 }
-                if (currentKBState.IsKeyDown(Keys.Right) & !falling)
+                if (currentKBState.IsKeyDown(Keys.Right) ) // took !falling out
                 {
                     right = Map.GetTileRight(position, image);
+                    
                     if (right == "Nothing" | right == "Ladder")
                     {
-                        AnimateRight();
+                        // AnimateRight();
+                        AnimateDirection(Direction.RIGHT);
                         position.X += animoveby;
+                       
                     }
 
                 }
@@ -191,7 +201,8 @@ namespace scrollPlatform
 
                     if (below == "Nothing" | below == "Ladder")
                     {
-                        Animateup();
+                        // Animateup();
+                        AnimateDirection(Direction.UP);
                         position.Y += animoveby;
                     }
                 }
@@ -200,12 +211,13 @@ namespace scrollPlatform
                     above = Map.GetTileAbove(position, image);
                     if (above == "Ladder")
                     {
-                        Animateup();
+                        //Animateup();
+                        AnimateDirection(Direction.UP);
                         position.Y -= animoveby;
                     }
 
                 }
-                Debug.WriteLine(below);
+                
 
                 if (currentKBState.IsKeyDown(Keys.Space) & below != "Nothing")
                 {
@@ -222,12 +234,10 @@ namespace scrollPlatform
 
             AtExit = false;
             falling = false;
-
-           var tileb = Map.GetTileBottom(position.X + (image.Width / 2), position.Y + image.Height); // gets the tile below you
-            below = Map.GetTileBelow(position, image);
-            above = Map.GetTileAbove(position, image);
-            right = Map.GetTileRight(position, image);
-            if (right == "Exit") { atexit = true; }
+           
+            var tileb = Map.GetTileBottom(position.X + (image.Width / 2), position.Y + image.Height); // gets the tile below you
+           
+            
             if (onplatform) { below = "Solid"; }
 
             //flying through air animation
@@ -280,64 +290,47 @@ namespace scrollPlatform
             
         }
 
-        private void AnimateRight()
-        {
-           
-            if (timer > interval)
-            {
-                mydirection = Direction.RIGHT;
-                if (currentFrame > 8)
-                {
-                    currentFrame = 0;
-                }
-                timer = 0f;
-                if (fire) { image = mariorectfire[currentFrame]; }
-                else
-                image = mariorect[currentFrame];
-                currentFrame++;
-            }
-            
-
-        }
-
-        private void AnimateLeft()
-        {
-           
-            if (timer > interval)
-            {
-
-                mydirection = Direction.LEFT;
-                if (currentFrame > 8)
-                {
-                    currentFrame = 1;
-                }
-                timer = 0f;
-                if (fire) { image = mariorectfire[currentFrame + 8]; }
-                else
-                    image = mariorect[currentFrame +8];
-                currentFrame++;
-
-            }
-
-        }
-
-        private void Animateup()
+        private void AnimateDirection(Direction dir)
         {
             if (timer > interval)
             {
-                mydirection = Direction.UP;
-                if (currentFrame > 1)
+                switch(dir)
                 {
-                    currentFrame = 0;
-                }
+                    case Direction.RIGHT:
+                        mydirection = Direction.RIGHT;
+                        if (currentFrame > 8)
+                        {
+                            currentFrame = 0;
+                        }
+                        if (fire) { image = mariorectfire[currentFrame]; }
+                        else
+                            image = mariorect[currentFrame];
+                        break;
+                    case Direction.LEFT:
+                        mydirection = Direction.LEFT;
+                        if (currentFrame > 8)
+                        {
+                            currentFrame = 1;
+                        }
+                        if (fire) { image = mariorectfire[currentFrame + 8]; }
+                        else
+                            image = mariorect[currentFrame + 8];
+                        break;
+                    case Direction.UP:
+                        mydirection = Direction.UP;
+                        if (currentFrame > 1)
+                        {
+                            currentFrame = 0;
+                        }
+                        image = mariorect[currentFrame + 18];
+                        break;
+                 }
                 timer = 0f;
-                image = mariorect[currentFrame + 18];
                 currentFrame++;
-
-            }
-
+            } // end timer
         }
 
+       
 
         public void Draw(SpriteBatch spritebatch)
         {
