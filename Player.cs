@@ -143,7 +143,6 @@ namespace scrollPlatform
 
             if (!hit)
             {
-               // Debug.WriteLine(onplatform);
                 if (currentKBState.IsKeyDown(Keys.F) && currentKBState.IsKeyDown(Keys.Up))
                 {
                     fireStrength++;
@@ -151,8 +150,9 @@ namespace scrollPlatform
                 if (currentKBState.IsKeyDown(Keys.F) && currentKBState.IsKeyDown(Keys.Down))
                 {
                     fireStrength--;
+                    if (fireStrength < 1) { fireStrength = 1; }
                 }
-                if (fireStrength < 1) { fireStrength = 1; }
+                
                 if (currentKBState.IsKeyDown(Keys.F) && !lastState.IsKeyDown(Keys.F) && !falling)
                 {
                     fire = !fire;
@@ -236,8 +236,6 @@ namespace scrollPlatform
             falling = false;
            
             var tileb = Map.GetTileBottom(position.X + (image.Width / 2), position.Y + image.Height); // gets the tile below you
-           
-            
             if (onplatform) { below = "Solid"; }
 
             //flying through air animation
