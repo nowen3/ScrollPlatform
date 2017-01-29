@@ -112,8 +112,6 @@ namespace scrollPlatform
                     jump = true;
                    
                 }
-                
-
             }
         }
 
